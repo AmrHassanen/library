@@ -1,0 +1,110 @@
+﻿@model Book
+
+<style>
+    body {
+        background-image: url('/Images/pexels-cottonbro-5095897.jpg'); /* Update with your local image path */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+
+    .card {
+        border-radius: 10px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: black; /* Card background */
+        padding: 20px;
+        width: 400px; /* Set a fixed width for the card */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Simple shadow */
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
+        }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .card-text {
+        color: #666;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        display: block;
+        margin: 10px auto;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        display: block;
+        margin: 10px auto;
+    }
+
+    .alert {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .tittle {
+        text-align: center;
+        color: green;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <h2 class="tittle">@Model.Title</h2>
+        <div>
+            <img src="@Model.ImageUrl" alt="@Model.Title" style="max-width: 100%; height: auto;" />
+            <p class="card-text">Author: @Model.Author</p>
+            <p class="card-text">Available Copies: @Model.Count</p>
+        </div>
+
+        <div>
+            @if (Model.Count > 0)
+            {
+                <form asp-action="Borrow" asp-controller="Borrows" method="post">
+                    <input type="hidden" name="bookId" value="@Model.Id" />
+                    <input type="submit" value="Borrow" class="btn btn-primary" />
+                </form>
+            }
+            else
+            {
+                <p class="text-danger">The book is out of stock.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}

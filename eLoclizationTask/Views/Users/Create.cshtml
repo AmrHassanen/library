@@ -1,0 +1,65 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<style>
+    body {
+        background-image: url('/Images/pexels-cottonbro-5095897.jpg'); /* Update with your image path */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .user-form {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    h2 {
+        color: #fff; /* White color for headings */
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="create-user-page">
+    <h2 class="text-success">Create User</h2>
+
+    <form method="post" asp-controller="Users" asp-action="Create" class="user-form" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label text-success"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
+</div>
